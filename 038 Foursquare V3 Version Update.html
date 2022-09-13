@@ -1,0 +1,10 @@
+<p>If you are using Foursquare V3 version, Foursquare has made a few changes to their API's. You can take a look at <a href="https://developer.foursquare.com/docs/migrate-to-newest-places-api-version" rel="noopener noreferrer" target="_blank">https://developer.foursquare.com/docs/migrate-to-newest-places-api-version</a> to learn how to migrate from v2 to v3.</p><p><br></p><p>&nbsp; <strong>Please note, all the V3 changes are also listed in this Pull Request so you can see these changes easily.</strong></p><p><a href="https://github.com/kulkarniankita/discover-coffee-stores/pull/3/files" rel="noopener noreferrer" target="_blank">https://github.com/kulkarniankita/discover-coffee-stores/pull/3/files</a></p><p><br></p><p>The data structure for Foursquare has now changed to return the following:</p><pre class="prettyprint linenums">return data?.results?.map((venue, idx) =&gt; { // &lt;------
+    const neighbourhood = venue.location.neighborhood;
+    return {
+      id: venue.fsq_id, // &lt;------
+      address: venue.location.address || "",
+      name: venue.name,
+      neighbourhood: (neighbourhood &amp;&amp; neighbourhood.length &gt; 0 &amp;&amp; neighbourhood[0]) || venue.location.cross_street || "",
+      imgUrl: photos[idx],
+    };
+  }) || [];</pre><p>The shape is now <code>data?.results</code> instead of <code>data?.response?.venues?</code> </p><p>We are now returning&nbsp; <code>venue.fsq_id</code> instead of <code>venue.id</code> </p><p><code>neighborhood</code> is now an array and <code>crossStreet</code> is no longer camel case but is <code>cross_street</code></p><p><br></p><p>That's all!! Good Luck :)&nbsp;</p><p><br></p><p><br></p>
